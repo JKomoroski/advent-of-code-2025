@@ -9,9 +9,7 @@ These are my solutions to [Advent of Code 2025](https://adventofcode.com/2025) u
 
 ### How To
 - Create and add your inputs to `inputs/day-0x/in.txt`
-- Build
-  - `./mvnw clean install`
-- Run
-  -`java -cp target/aoc-2025-0.0.1-SNAPSHOT.jar ski.komoro.aoc.twentyfive.Day02`
-  - Where `Day02` is the name of the day you want to run
-- If needed, update the Day class with an alternate input file like `test.txt` for the test input
+- Create and add your test inputs to `inputs/day-0x/test.txt`
+- Build with `./mvnw clean install`
+- Run with`java -jar target/aoc-2025-0.0.1-SNAPSHOT.jar 02`
+  - Where `02` is a part of the name of the class you want to run
