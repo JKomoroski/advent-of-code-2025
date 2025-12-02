@@ -4,14 +4,10 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 import ski.komoro.aoc.utils.Range;
 
-public class Day02 extends AOCBase {
+public final class Day02 extends AOCBase {
 
-    String repeatsDigits = "^(\\d+)\\1$";
-    String repeatsDigits2OrMore = "^(\\d+)\\1+$";
-
-    static void main(String[] args) throws Exception {
-        new Day02().run();
-    }
+    String repeatsDigitsOnce = "^(\\d+)\\1$";
+    String repeatsDigitsAtLeastOnce = "^(\\d+)\\1+$";
 
     @Override
     String folder() {
@@ -37,7 +33,7 @@ public class Day02 extends AOCBase {
                 fileInput.flatMap(s -> Arrays.stream(s.split(",")))
                         .map(this::range)
                         .flatMapToLong(Range::closedRange)
-                        .filter(this::hasRepeatingDigits2OrMore)
+                        .filter(this::hasRepeatingDigitsAtLeastOnce)
                         .sum();
 
         IO.println("Part 2: " + sum);
@@ -49,10 +45,10 @@ public class Day02 extends AOCBase {
     }
 
     boolean hasRepeatingDigits(long id) {
-        return String.valueOf(id).matches(repeatsDigits);
+        return String.valueOf(id).matches(repeatsDigitsOnce);
     }
 
-    boolean hasRepeatingDigits2OrMore(long id) {
-        return String.valueOf(id).matches(repeatsDigits2OrMore);
+    boolean hasRepeatingDigitsAtLeastOnce(long id) {
+        return String.valueOf(id).matches(repeatsDigitsAtLeastOnce);
     }
 }
