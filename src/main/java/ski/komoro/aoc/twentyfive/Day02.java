@@ -9,12 +9,13 @@ public class Day02 extends AOCBase {
     String repeatsDigits = "^(\\d+)\\1$";
     String repeatsDigits2OrMore = "^(\\d+)\\1+$";
 
-    public Day02() {
-        super("day-02", "in.txt");
-    }
-
     public static void main(String[] args) throws Exception {
         new Day02().run();
+    }
+
+    @Override
+    String folder() {
+        return "day-02";
     }
 
     @Override
@@ -39,7 +40,7 @@ public class Day02 extends AOCBase {
                         .filter(this::hasRepeatingDigits2OrMore)
                         .sum();
 
-        IO.println("Part 1: " + sum);
+        IO.println("Part 2: " + sum);
     }
 
     Range range(String s) {

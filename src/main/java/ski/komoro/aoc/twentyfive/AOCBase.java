@@ -11,25 +11,33 @@ import java.time.temporal.ChronoUnit;
 import java.util.stream.Stream;
 
 abstract class AOCBase {
-
-    private final String folder;
-    private final String fileName;
-
     protected Instant start1 = null;
     protected Instant end1 = null;
     protected Instant start2 = null;
     protected Instant end2 = null;
 
-    protected AOCBase(String folder, String fileName) {
-        this.folder = folder;
-        this.fileName = fileName;
+    abstract String folder();
+
+    protected String file() {
+        return "in.txt";
+    }
+
+    protected String testFile() {
+        return "test.txt";
     }
 
     void run() throws Exception {
-        final var input = Paths.get("", "inputs", folder, fileName).toAbsolutePath();
+        IO.println("Starting Test");
+        final var testInput = Paths.get("", "inputs", folder(), testFile()).toAbsolutePath();
+        runPart1(testInput);
+        runPart2(testInput);
+        IO.println("Test Total Time Elapsed: " + Duration.between(start1, end2).toMillis() + "ms");
+
+        IO.println("Starting Actual");
+        final var input = Paths.get("", "inputs", folder(), file()).toAbsolutePath();
         runPart1(input);
         runPart2(input);
-        System.out.println("Total Time Elapsed: " + Duration.between(start1, end2).toMillis() + "ms");
+        IO.println("Actual Total Time Elapsed: " + Duration.between(start1, end2).toMillis() + "ms");
 
     }
 
@@ -39,20 +47,20 @@ abstract class AOCBase {
 
     private void runPart1(Path input) throws Exception {
         start1 = Instant.now();
-        System.out.println("Starting Part 1 @ " + fromInstant(start1));
+        IO.println("Starting Part 1 @ " + fromInstant(start1));
         part1(Files.lines(input));
         end1 = Instant.now();
-        System.out.println("Finished Part 1 @ " + fromInstant(end1));
-        System.out.println("Finished Part 1 in " + Duration.between(start1, end1).toMillis() + "ms");
+        IO.println("Finished Part 1 @ " + fromInstant(end1));
+        IO.println("Finished Part 1 in " + Duration.between(start1, end1).toMillis() + "ms");
     }
 
     private void runPart2(Path input) throws Exception {
         start2 = Instant.now();
-        System.out.println("Starting Part 2 @ " + fromInstant(start2));
+        IO.println("Starting Part 2 @ " + fromInstant(start2));
         part2(Files.lines(input));
         end2 = Instant.now();
-        System.out.println("Finished Part 2 @ " + fromInstant(end2));
-        System.out.println("Finished Part 2 in " + Duration.between(start2, end2).toMillis() + "ms");
+        IO.println("Finished Part 2 @ " + fromInstant(end2));
+        IO.println("Finished Part 2 in " + Duration.between(start2, end2).toMillis() + "ms");
     }
 
 
