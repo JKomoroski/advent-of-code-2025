@@ -9,7 +9,17 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>25</maven.compiler.release>
+        <project.build.systemJdk>25</project.build.systemJdk>
+        <project.build.targetJdk>25</project.build.targetJdk>
+        <project.build.testJdk>25</project.build.testJdk>
+        <maven.compiler.release>${project.build.targetJdk}</maven.compiler.release>
+        <maven.compiler.source>${project.build.targetJdk}</maven.compiler.source>
+        <maven.compiler.target>${project.build.targetJdk}</maven.compiler.target>
+        <maven.test-compiler.release>${project.build.testJdk}</maven.test-compiler.release>
+        <maven.test-compiler.source>${project.build.testJdk}</maven.test-compiler.source>
+        <maven.test-compiler.target>${project.build.testJdk}</maven.test-compiler.target>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.reporting.inputEncoding>UTF-8</project.reporting.inputEncoding>
     </properties>
 
 </project>
