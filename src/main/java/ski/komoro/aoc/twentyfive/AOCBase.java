@@ -10,7 +10,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Stream;
 
-public abstract sealed class AOCBase permits Day02 {
+public abstract sealed class AOCBase permits Day02, Day03 {
     protected Instant start1 = null;
     protected Instant end1 = null;
     protected Instant start2 = null;
