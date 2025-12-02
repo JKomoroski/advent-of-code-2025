@@ -18,4 +18,5 @@ public final class Day01 extends AOCBase {
     protected String part2(final Stream<String> fileInput) throws Exception {
         return "hello world";
     }
+
 }
