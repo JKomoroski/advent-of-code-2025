@@ -9,7 +9,7 @@ public class Day02 extends AOCBase {
     String repeatsDigits = "^(\\d+)\\1$";
     String repeatsDigits2OrMore = "^(\\d+)\\1+$";
 
-    public static void main(String[] args) throws Exception {
+    static void main(String[] args) throws Exception {
         new Day02().run();
     }
 
