@@ -13,6 +13,10 @@ public class Day02 extends AOCBase {
         super("day-02", "in.txt");
     }
 
+    public static void main(String[] args) throws Exception {
+        new Day02().run();
+    }
+
     @Override
     protected void part1(final Stream<String> fileInput) throws Exception {
         final long sum =
