@@ -15,20 +15,18 @@ public final class Day02 extends AOCBase {
     }
 
     @Override
-    protected void part1(final Stream<String> fileInput) throws Exception {
+    protected String part1(final Stream<String> fileInput) throws Exception {
         final long sum =
                 fileInput.flatMap(s -> Arrays.stream(s.split(",")))
                 .map(this::range)
                 .flatMapToLong(Range::closedRange)
                 .filter(this::hasRepeatingDigits)
                 .sum();
-
-        IO.println("Part 1: " + sum);
-
+        return String.valueOf(sum);
     }
 
     @Override
-    protected void part2(final Stream<String> fileInput) throws Exception {
+    protected String part2(final Stream<String> fileInput) throws Exception {
         final long sum =
                 fileInput.flatMap(s -> Arrays.stream(s.split(",")))
                         .map(this::range)
@@ -36,7 +34,7 @@ public final class Day02 extends AOCBase {
                         .filter(this::hasRepeatingDigitsAtLeastOnce)
                         .sum();
 
-        IO.println("Part 2: " + sum);
+        return String.valueOf(sum);
     }
 
     Range range(String s) {

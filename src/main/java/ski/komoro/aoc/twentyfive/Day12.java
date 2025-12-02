@@ -2,11 +2,11 @@ package ski.komoro.aoc.twentyfive;
 
 import java.util.stream.Stream;
 
-public final class Day03 extends AOCBase {
+public final class Day12 extends AOCBase {
 
     @Override
     String folder() {
-        return "day-03";
+        return "day-12";
     }
 
     @Override
