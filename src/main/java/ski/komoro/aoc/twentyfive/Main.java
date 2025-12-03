@@ -13,6 +13,7 @@ public class Main {
 
     static void main(String[] args) throws Exception {
         initInputs(args);
+//        buildInstance(Day03.class).run();
         buildInstance(findDay(args)).run();
     }
 
