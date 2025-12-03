@@ -48,13 +48,10 @@ public final class Day01 extends AOCBase {
         }
     }
 
-    record Dial(int pos, CircularList<Integer> points, int pastZero) {
+    record Dial(int pos, CircularList<Integer> points, int pastZero, int isZero) {
 
         Dial(int pos, int size) {
-            this(pos, new CircularList<Integer>(IntStream.range(0, size).boxed().toList()), 0);
-        }
-        Dial(int pos, int size, int pastZero) {
-            this(pos, new CircularList<Integer>(IntStream.range(0, size).boxed().toList()), 0);
+            this(pos, new CircularList<Integer>(IntStream.range(0, size).boxed().toList()), 0, 0);
         }
 
         Dial move(Turn turn) {
@@ -62,7 +59,8 @@ public final class Day01 extends AOCBase {
             final int turnsPastZero = calculateTurnsPastZero(turn);
             final Integer pos2 = points.get(pos);
             final int pastZero = this.pastZero + turnsPastZero + (this.pos == 0 ? -1 : 0);
-            return new Dial(pos2, this.points, pastZero);
+            final int isZero = pos2 == 0 ? this.isZero + 1 : this.isZero;
+            return new Dial(pos2, this.points, pastZero, isZero);
         }
 
         private int calculateTurnsPastZero(Turn turn) {
