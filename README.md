@@ -1,4 +1,4 @@
-# Advent of Code - 2024
+# Advent of Code - 2025
 ---
 
 These are my solutions to [Advent of Code 2025](https://adventofcode.com/2025) using Java 25 - hopefully using only the standard library.
