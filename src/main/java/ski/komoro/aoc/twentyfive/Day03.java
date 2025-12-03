@@ -2,8 +2,8 @@ package ski.komoro.aoc.twentyfive;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -17,7 +17,7 @@ public final class Day03 extends AOCBase {
     @Override
     protected String part1(final Stream<String> fileInput) throws Exception {
         final long joltage = fileInput.map(Bank::from)
-                .mapToLong(b -> b.maxN(2))
+                .mapToLong(b -> b.maxOrderedDigits(2))
                 .sum();
 
         return String.valueOf(joltage);
@@ -27,7 +27,7 @@ public final class Day03 extends AOCBase {
     @Override
     protected String part2(final Stream<String> fileInput) throws Exception {
         final long joltage = fileInput.map(Bank::from)
-                .mapToLong(b -> b.maxN(12))
+                .mapToLong(b -> b.maxOrderedDigits(12))
                 .sum();
 
         return String.valueOf(joltage);
@@ -42,57 +42,34 @@ public final class Day03 extends AOCBase {
             return new Bank(batteries);
         }
 
-        int maxTwo() {
-            int maxidx1 = 0;
-            int maxidx2 = batteries.size() - 1;
-
-            for (int i = 0; i < batteries.size() - 1; i++) {
-                if (batteries.get(i) > batteries.get(maxidx1)) {
-                    maxidx1 = i;
-                }
-            }
-
-            for (int i = maxidx1 + 1; i < batteries.size(); i++) {
-                if (batteries.get(i) > batteries.get(maxidx2)) {
-                    maxidx2 = i;
-                }
-            }
-            final String pos1 = String.valueOf(batteries.get(maxidx1));
-            final String pos2 = String.valueOf(batteries.get(maxidx2));
-            final String result = pos1 + pos2;
-
-            return Integer.parseInt(result);
-        }
-
-        long maxN(int n) {
+        long maxOrderedDigits(int n) {
             List<Integer> maxIndices = new ArrayList<>();
 
-            int maxIdx = 0;
-            for (int i = 0; i <= batteries.size() - n; i++) {
-                if (batteries.get(i) > batteries.get(maxIdx)) {
-                    maxIdx = i;
-                }
-            }
-            maxIndices.add(maxIdx);
+            int firstMax = IntStream.rangeClosed(0, batteries.size() - n)
+                    .reduce(0, this::compareBatteryByIdx);
+            maxIndices.add(firstMax);
 
-            for (int k = 1; k < n; k++) {
-                int prevIdx = maxIndices.get(k - 1);
-                maxIdx = prevIdx + 1;
-                for (int i = prevIdx + 1; i <= batteries.size() - (n - k); i++) {
-                    if (batteries.get(i) > batteries.get(maxIdx)) {
-                        maxIdx = i;
-                    }
-                }
-                maxIndices.add(maxIdx);
-            }
+            // Subsequent indices
+            IntStream.range(1, n)
+                    .forEach(k -> {
+                        int prevIdx = maxIndices.get(k - 1);
+                        int maxIdx = IntStream.rangeClosed(prevIdx + 1, batteries.size() - (n - k))
+                                .reduce(prevIdx + 1, this::compareBatteryByIdx);
+                        maxIndices.add(maxIdx);
+                    });
 
-            StringBuilder result = new StringBuilder();
-            for (int idx : maxIndices) {
-                result.append(batteries.get(idx));
-            }
+            final String result = maxIndices.stream()
+                    .map(batteries::get)
+                    .map(String::valueOf)
+                    .collect(Collectors.joining());
 
-            return Long.parseLong(result.toString());
+            return Long.parseLong(result);
         }
+
+        int compareBatteryByIdx(int previousBest, int current) {
+            return batteries.get(current) > batteries.get(previousBest) ? current : previousBest;
+        }
+
     }
 
 }
