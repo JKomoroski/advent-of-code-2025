@@ -2,8 +2,6 @@ package ski.komoro.aoc.utils;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Utils {
 
@@ -28,9 +26,5 @@ public class Utils {
         }
 
         return true;
-    }
-
-    public static Stream<String> joinStrings(final Stream<String> strings) {
-        return Stream.of(strings.collect(Collectors.joining()));
     }
 }

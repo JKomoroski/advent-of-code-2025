@@ -13,8 +13,8 @@ public class Main {
 
     static void main(String[] args) throws Exception {
         initInputs(args);
-//        buildInstance(Day04.class).run(); // uncomment to run a specific day with a debugger quickly
-        buildInstance(findDay(args)).run();
+        buildInstance(Day05.class).run(); // uncomment to run a specific day with a debugger quickly
+//        buildInstance(findDay(args)).run();
     }
 
     static AOCBase buildInstance(Class<? extends AOCBase> clazz) throws Exception {

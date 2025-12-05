@@ -1,6 +1,11 @@
 package ski.komoro.aoc.twentyfive;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import ski.komoro.aoc.utils.Range;
 
 public final class Day05 extends AOCBase {
 
@@ -11,11 +16,38 @@ public final class Day05 extends AOCBase {
 
     @Override
     protected String part1(final Stream<String> fileInput) throws Exception {
-        return "hello world";
+        var ids = new ArrayList<Range>();
+        var available = new ArrayList<Long>();
+        for (final String s : fileInput.toList()) {
+            if(s.contains("-")) {
+                final String[] split = s.split("-");
+                ids.add(new Range(split[0], split[1]));
+                continue;
+            }
+            if(s.isBlank()) {
+                continue;
+            }
+            available.add(Long.parseLong(s));
+        }
+
+        final long count = available.stream()
+                .filter(l -> ids.stream().anyMatch(r -> r.containsClosed(l)))
+                .count();
+
+        return String.valueOf(count);
     }
 
     @Override
     protected String part2(final Stream<String> fileInput) throws Exception {
-        return "hello world";
+        var count = fileInput.filter(s -> s.contains("-"))
+                .map(s -> s.split("-"))
+                .map(split -> new Range(split[0], split[1]))
+                .sorted()
+                .collect(Range.merging())
+                .stream()
+                .mapToLong(Range::sizeClosed)
+                .sum();
+
+        return String.valueOf(count);
     }
 }
