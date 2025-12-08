@@ -67,7 +67,6 @@ public final class Day07 extends AOCBase {
                     //kill the old timeline
                     timelineCounts[x] = 0;
                 }
-
             }
             beams.addAll(newBeams);
             beams.removeAll(removeBeams);
