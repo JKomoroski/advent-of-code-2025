@@ -26,7 +26,7 @@ public final class Day09 extends AOCBase {
                 .toList();
 
         final long maxSize = rectangles.stream()
-                .mapToLong(Rectangle::area)
+                .mapToLong(Rectangle::cellArea)
                 .max()
                 .orElseThrow();
         return String.valueOf(maxSize);
@@ -43,11 +43,11 @@ public final class Day09 extends AOCBase {
         var largestRect = IntStream.range(0, points.size())
                 .boxed()
                 .flatMap(i -> IntStream.range(i + 1, points.size()).mapToObj(j -> new Rectangle(points.get(i), points.get(j))))
-                .sorted(Comparator.comparing(Rectangle::area).reversed())
+                .sorted(Comparator.comparing(Rectangle::cellArea).reversed())
                 .filter(r -> r.isRectangleInside(polygon))
                 .findFirst()
                 .orElseThrow();
 
-        return String.valueOf(largestRect.area());
+        return String.valueOf(largestRect.cellArea());
     }
 }

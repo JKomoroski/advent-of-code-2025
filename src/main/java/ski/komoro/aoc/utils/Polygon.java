@@ -14,4 +14,31 @@ public record Polygon(List<Line> edges) {
         return new Polygon(edges);
     }
 
+    public boolean isPointOnOrInside(Point2 p) {
+        // First check if point is ON any edge
+        for (Line edge : edges()) {
+            if (edge.isPointOnLine(p)) {
+                return true;
+            }
+        }
+
+        // Ray casting for interior points
+        int crossings = 0;
+        for (Line edge : edges()) {
+            if ((edge.p1().y() <= p.y() && edge.p2().y() > p.y()) ||
+                    (edge.p2().y() <= p.y() && edge.p1().y() > p.y())) {
+
+                double xIntersect = edge.p1().x() +
+                        (p.y() - edge.p1().y()) * (edge.p2().x() - edge.p1().x()) /
+                                (edge.p2().y() - edge.p1().y());
+
+                if (p.x() < xIntersect) {
+                    crossings++;
+                }
+            }
+        }
+
+        return crossings % 2 == 1;
+    }
+
 }
