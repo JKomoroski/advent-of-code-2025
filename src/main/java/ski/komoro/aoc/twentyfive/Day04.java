@@ -46,14 +46,14 @@ public final class Day04 extends AOCBase {
     // Bound checking is for nerds
     boolean isPaper(Point2 p, char[][] grid) {
         try {
-            return grid[p.x()][p.y()] == '@';
+            return grid[Math.toIntExact(p.x())][Math.toIntExact(p.y())] == '@';
         } catch (Exception e) {
             return false;
         }
     }
 
     void removePaper(Point2 p, char[][] grid) {
-        grid[p.x()][p.y()] = '.';
+        grid[Math.toIntExact(p.x())][Math.toIntExact(p.y())] = '.';
     }
 
     @Override
