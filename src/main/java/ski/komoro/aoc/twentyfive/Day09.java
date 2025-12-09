@@ -1,8 +1,10 @@
 package ski.komoro.aoc.twentyfive;
 
 import java.util.Comparator;
+import java.util.stream.Gatherers;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import ski.komoro.aoc.utils.BoundingBox;
 import ski.komoro.aoc.utils.Point2;
 import ski.komoro.aoc.utils.Polygon;
 import ski.komoro.aoc.utils.Rectangle;
@@ -39,13 +41,12 @@ public final class Day09 extends AOCBase {
                 .toList();
 
         var polygon = Polygon.of(points);
-
         var largestRect = IntStream.range(0, points.size())
+                .parallel()
                 .boxed()
                 .flatMap(i -> IntStream.range(i + 1, points.size()).mapToObj(j -> new Rectangle(points.get(i), points.get(j))))
-                .sorted(Comparator.comparing(Rectangle::cellArea).reversed())
                 .filter(r -> r.isRectangleInside(polygon))
-                .findFirst()
+                .max(Comparator.comparing(Rectangle::cellArea))
                 .orElseThrow();
 
         return String.valueOf(largestRect.cellArea());

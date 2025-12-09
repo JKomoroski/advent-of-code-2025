@@ -23,4 +23,9 @@ public record Point2(long x, long y) {
         return l.isPointOnLine(this);
     }
 
+    public static boolean isCollinear(Point2 a, Point2 b, Point2 c) {
+        // Cross product = 0 means collinear
+        return (b.y - a.y) * (c.x - b.x) == (c.y - b.y) * (b.x - a.x);
+    }
+
 }

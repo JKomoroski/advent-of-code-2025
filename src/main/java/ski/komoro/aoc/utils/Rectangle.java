@@ -46,7 +46,7 @@ public record Rectangle(Point2 p1, Point2 p2) {
         }
 
         return edges().stream()
-                .noneMatch(rectEdge -> polygon.edges().stream().anyMatch(rectEdge::edgesCross));
+                .noneMatch(rectEdge -> polygon.edges().stream().anyMatch(rectEdge::intersects));
     }
 
 
