@@ -44,9 +44,19 @@ public record Rectangle(Point2 p1, Point2 p2) {
                 return false;
             }
         }
+        // Check intersections (expensive test)
+        List<Line> rectEdges = edges();
+        List<Line> polyEdges = polygon.edges();
 
-        return edges().stream()
-                .noneMatch(rectEdge -> polygon.edges().stream().anyMatch(rectEdge::intersects));
+        for (Line rectEdge : rectEdges) {
+            for (Line polyEdge : polyEdges) {
+                if (rectEdge.intersects(polyEdge)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 

@@ -1,10 +1,8 @@
 package ski.komoro.aoc.twentyfive;
 
 import java.util.Comparator;
-import java.util.stream.Gatherers;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import ski.komoro.aoc.utils.BoundingBox;
 import ski.komoro.aoc.utils.Point2;
 import ski.komoro.aoc.utils.Polygon;
 import ski.komoro.aoc.utils.Rectangle;

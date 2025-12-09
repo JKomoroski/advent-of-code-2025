@@ -15,22 +15,22 @@ public record Polygon(List<Line> edges) {
     }
 
     public boolean isPointOnOrInside(Point2 p) {
-        // First check if point is ON any edge
+        int crossings = 0;
+
         for (Line edge : edges()) {
+            long x1 = edge.p1().x();
+            long y1 = edge.p1().y();
+            long x2 = edge.p2().x();
+            long y2 = edge.p2().y();
+
+            // Check if point is ON edge first
             if (edge.isPointOnLine(p)) {
                 return true;
             }
-        }
 
-        // Ray casting for interior points
-        int crossings = 0;
-        for (Line edge : edges()) {
-            if ((edge.p1().y() <= p.y() && edge.p2().y() > p.y()) ||
-                    (edge.p2().y() <= p.y() && edge.p1().y() > p.y())) {
-
-                double xIntersect = edge.p1().x() +
-                        (p.y() - edge.p1().y()) * (edge.p2().x() - edge.p1().x()) /
-                                (edge.p2().y() - edge.p1().y());
+            // Ray casting - standard algorithm
+            if ((y1 <= p.y() && y2 > p.y()) || (y2 <= p.y() && y1 > p.y())) {
+                double xIntersect = x1 + (p.y() - y1) * (x2 - x1) / (double)(y2 - y1);
 
                 if (p.x() < xIntersect) {
                     crossings++;
@@ -38,7 +38,7 @@ public record Polygon(List<Line> edges) {
             }
         }
 
-        return crossings % 2 == 1;
+        return (crossings & 1) == 1;
     }
 
 }
