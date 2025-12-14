@@ -13,7 +13,7 @@ public class Main {
 
     static void main(String[] args) throws Exception {
         initInputs(args);
-        buildInstance(Day10.class).run(); // uncomment to run a specific day with a debugger quickly
+        buildInstance(Day11.class).run(); // uncomment to run a specific day with a debugger quickly
 //        buildInstance(findDay(args)).run();
     }
 
